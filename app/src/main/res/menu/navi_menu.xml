@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/calenderFragment"
+        android:title="캘린더"
+        android:icon="@drawable/ic_calendar"/>
+
+    <item
+        android:id="@+id/map"
+        android:title="지도"
+        android:icon="@drawable/ic_map"/>
+
+    <item
+        android:id="@+id/myPageFragment"
+        android:title="마이페이지"
+        android:icon="@drawable/ic_account_circle"/>
+
+</menu>
