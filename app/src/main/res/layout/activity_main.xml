@@ -4,15 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MapsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="Polyline"
+      android:textSize="24sp"
+      android:textStyle="bold" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="16dp">
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:text="시작" />
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="종료"/>
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/numberOfStepTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:paddingStart="16dp"
+      android:text="걸음 수: "
+      android:textSize="16sp"
+      android:textStyle="bold" />
+  <TextView
+      android:id="@+id/totalDistanceTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="16dp"
+      android:text="총 거리: "
+      android:textSize="16sp"
+      android:textStyle="bold" />
+  <TextView
+      android:id="@+id/averagePaceTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="16dp"
+      android:text="평균 속도: "
+      android:layout_marginBottom="16dp"
+      android:textSize="16sp"
+      android:textStyle="bold" />
+
+  <fragment
+      android:id="@+id/map"
+      android:name="com.google.android.gms.maps.SupportMapFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+</LinearLayout>
+
+  <FrameLayout
+      android:id="@+id/mainFrameLayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/navigationView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      app:itemBackground="@color/Gold"
+      app:itemIconTint="@drawable/menu_click_color"
+      app:itemTextColor="@drawable/menu_click_color"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:menu="@menu/navi_menu"
+      tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
