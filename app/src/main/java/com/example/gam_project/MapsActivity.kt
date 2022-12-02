@@ -41,6 +41,7 @@ import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACTIVITY_RECOGNITION
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -50,6 +51,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -67,6 +71,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import java.util.*
@@ -98,6 +103,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     if (calender != null){
       fragTransaction.hide(calender)
     }
+
 
     if (map != null) {
       fragTransaction.hide(map)
@@ -537,4 +543,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
       }
     }
   }
-}
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if(item.itemId == R.id.log_out) {
+      FirebaseAuth.getInstance().signOut()
+      val intent = Intent(this@MapsActivity,LoginActivity::class.java)
+      startActivity(intent)
+      finish()
+      return true
+    }
+    return true
+
+    }
+  }
+

@@ -4,18 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/btn_orange.xml" value="0.2315" />
+        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/btn_white.xml" value="0.25" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/ic_account_circle.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/ic_calendar.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/ic_map.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/menu_click_color.xml" value="0.1" />
-        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/activity_main.xml" value="0.18613138686131386" />
+        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/activity_maps.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/activity_navi.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/fragment_calender.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/fragment_map.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/fragment_my_page.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/layout/fragment_mypage.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/menu/navi_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1605" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_gam_round.xml" value="0.2275" />
