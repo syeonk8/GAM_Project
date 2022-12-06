@@ -1,9 +1,11 @@
 package com.example.gam_project
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gam_project.tracking.MapsActivity
@@ -18,6 +20,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.gam_project.tracking.databinding.ActivityMainBinding
+
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.common.model.AuthErrorCause.*
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.launch
+
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,11 +45,35 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     //private const val TAG = "GoogleActivity"
     private val RC_SIGN_IN = 99
+    private lateinit var kakaoLoginButton: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        kakaoLoginButton = findViewById(R.id.kakao_login_button)
+        val context = this
+        kakaoLoginButton.setOnClickListener {
+            lifecycleScope.launch {
+                try {
+                    // 서비스 코드에서는 간단하게 로그인 요청하고 oAuthToken 을 받아올 수 있다.
+                    val oAuthToken = UserApiClient.loginWithKakao(context)
+                    Log.d("LoginActivity", "beanbean > $oAuthToken")
+                } catch (error: Throwable) {
+                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        Log.d("LoginActivity", "사용자가 명시적으로 취소")
+                    } else {
+                        Log.e("LoginActivity", "인증 에러 발생", error)
+                    }
+                }
+            }
+        }
+
+
+
+
+        //***************************************************************************
         //btn_googleSignIn.setOnClickListener (this) // 구글 로그인 버튼
         btn_googleSignIn.setOnClickListener {signIn()}
 
@@ -134,5 +174,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         }
     }
+
+
 
 }

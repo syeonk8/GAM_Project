@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.gam_project.tracking.R
-
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+//import com.example.gam_project.tracking.R
+//import com.example.gam_project.tracking.databinding.ActivityCalenderBinding
+import com.example.gam_project.tracking.databinding.FragmentCalenderBinding
+import kotlinx.android.synthetic.main.fragment_calender.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+//private const val ARG_PARAM1 = "param1"
+//private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -21,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class CalenderFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    /*private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,5 +64,68 @@ class CalenderFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }*/
+    lateinit var scheduleRecyclerViewAdapter: RecyclerViewAdapter
+    private var _binding: FragmentCalenderBinding? = null
+    private val binding get() = _binding!!
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentCalenderBinding.inflate(inflater, container, false)
+        initView()
+        val view = binding.root
+
+        return view
+    }
+
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        scheduleRecyclerViewAdapter = RecyclerViewAdapter(this)
+
+        binding.rvSchedule.layoutManager = GridLayoutManager(requireContext(), BaseCalendar.DAYS_OF_WEEK)
+        binding.rvSchedule.adapter = scheduleRecyclerViewAdapter
+        binding.rvSchedule.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL))
+        binding.rvSchedule.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+
+        binding.tvPrevMonth.setOnClickListener {
+            scheduleRecyclerViewAdapter.changeToPrevMonth()
+        }
+
+        binding.tvNextMonth.setOnClickListener {
+            scheduleRecyclerViewAdapter.changeToNextMonth()
+        }
+    }*/
+
+    fun initView() {
+
+        scheduleRecyclerViewAdapter = RecyclerViewAdapter(this)
+
+        binding.rvSchedule.layoutManager = GridLayoutManager(getContext(), BaseCalendar.DAYS_OF_WEEK)
+        binding.rvSchedule.adapter = scheduleRecyclerViewAdapter
+        binding.rvSchedule.addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL))
+        binding.rvSchedule.addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
+
+        binding.tvPrevMonth.setOnClickListener {
+            scheduleRecyclerViewAdapter.changeToPrevMonth()
+        }
+
+        binding.tvNextMonth.setOnClickListener {
+            scheduleRecyclerViewAdapter.changeToNextMonth()
+        }
+    }
+
+    fun refreshCurrentMonth(calendar: Calendar) {
+        val sdf = SimpleDateFormat("yyyy MM", Locale.KOREAN)
+        binding.tvCurrentMonth.text = sdf.format(calendar.time)
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

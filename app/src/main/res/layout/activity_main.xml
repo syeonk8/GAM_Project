@@ -20,8 +20,9 @@
       <Button
           android:id="@+id/startButton"
           android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_height="38dp"
           android:layout_weight="1"
+          android:layout_marginTop="10dp"
           android:background="@drawable/btn_orange"
           android:textStyle="bold"
           android:text="시작" />
@@ -29,9 +30,10 @@
       <Button
           android:id="@+id/endButton"
           android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_height="38dp"
           android:layout_marginStart="8dp"
           android:layout_weight="1"
+          android:layout_marginTop="10dp"
           android:background="@drawable/btn_orange"
           android:textStyle="bold"
           android:text="종료"/>
@@ -44,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:paddingStart="16dp"
         android:text="걸음 수: "
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/totalDistanceTextView"
@@ -52,7 +54,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:text="총 거리: "
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/averagePaceTextView"
@@ -61,7 +63,7 @@
         android:paddingStart="16dp"
         android:text="평균 속도: "
         android:layout_marginBottom="16dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <fragment

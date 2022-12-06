@@ -10,6 +10,6 @@
         android:topLeftRadius="5dp"
         android:topRightRadius="5dp"/>
     <!-- 테두리 색깔 -->
-    <stroke android:width="5dp"
+    <stroke android:width="0dp"
         android:color="#FFFFFFFF"/>
 </shape>
