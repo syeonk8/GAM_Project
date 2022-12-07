@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GAM_Project/app/src/main/res/layout/activity_main.xml" value="0.175" />
+        <entry key="..\:/GAM_Project/app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="..\:/GAM_Project/app/src/main/res/layout/item_schedule.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/btn_orange.xml" value="0.2315" />
         <entry key="..\:/Users/Seoye/AndroidStudioProjects/GAM_Project/app/src/main/res/drawable/btn_white.xml" value="0.25" />

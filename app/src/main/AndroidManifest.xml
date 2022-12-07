@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
 
@@ -35,12 +36,15 @@
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
+        <service android:name="com.example.gam_project.TrackingService"
+            android:foregroundServiceType="location"/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAhmaKmMr4FkYiEPIfbkEgulh8lxkc-aPs" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.example.gam_project.MapsActivity"
             android:exported="true" />
         <activity
             android:name="com.example.gam_project.LoginActivity"

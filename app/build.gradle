@@ -70,6 +70,10 @@ dependencies {
     // Location
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
+    //service
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation 'androidx.lifecycle:lifecycle-service:2.5.1'
+
     // Room
     def room_version = "2.5.0-alpha02"
     implementation "androidx.room:room-runtime:$room_version"

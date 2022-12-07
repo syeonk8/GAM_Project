@@ -1,41 +1,4 @@
-/*
- * Copyright (c) 2021 Razeware LLC
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- * 
- * This project and source code may use libraries or frameworks that are
- * released under various Open-Source licenses. Use of those libraries and
- * frameworks are governed by their own individual licenses.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-package com.example.gam_project.tracking
-
+package com.example.gam_project
 
 import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -52,7 +15,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -63,6 +25,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.gam_project.*
+import com.example.gam_project.Constants.ACTION_START_OR_RESUME_SERVICE
+import com.example.gam_project.Constants.ACTION_STOP_SERVICE
+import com.example.gam_project.tracking.R
 import com.example.gam_project.tracking.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -76,8 +41,6 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 
 import java.util.*
-
-
 
 
 private const val TAG_CALENDER = "calender_fragment"
@@ -135,33 +98,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
       }
     }
 
-
     fragTransaction.commitAllowingStateLoss()
   }
 
-  //권한
-  val permissons = arrayOf(ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
-  val PERM_FLAG = 99
-  // ViewModel
-  private val mapsActivityViewModel: MapsActivityViewModel by viewModels {
-    MapsActivityViewModelFactory(getTrackingRepository())
-  }
-
-  // Location & Map
-  private lateinit var mMap: GoogleMap
-  private lateinit var fusedLocationProviderClient: FusedLocationProviderClient //내위치 가져오는 정확도,소모량 자동으로 정하는애
+  private lateinit var mMap: GoogleMap //구글 맵
+  private lateinit var fusedLocationProviderClient: FusedLocationProviderClient //현재위치
   private var polylineOptions = PolylineOptions()
-  private val locationCallback = object: LocationCallback() {//내위치 가져오는 응답값 처리
-    override fun onLocationResult(locationResult: LocationResult?) {
-      super.onLocationResult(locationResult)
-      locationResult ?: return
-      locationResult.locations.forEach {
-        val trackingEntity = TrackingEntity(Calendar.getInstance().timeInMillis, it.latitude, it.longitude)
-        mapsActivityViewModel.insert(trackingEntity)
-        Log.v("LOCATION_UPDATE", it.latitude.toString() + ", " + it.latitude.toString())
-      }
-    }
-  }
 
   companion object {
     // SharedPreferences
@@ -173,33 +115,54 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private const val REQUEST_CODE_ACTIVITY_RECOGNITION = 2
   }
 
+  // 뷰모델
+  private val mapsActivityViewModel: MapsActivityViewModel by viewModels {
+    MapsActivityViewModelFactory(getTrackingRepository())
+  }
+
+  //권한
+  val permissons = arrayOf(ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
+  val PERM_FLAG = 99
+
+
   private var isTracking: Boolean
-    get() = this.getSharedPreferences(KEY_SHARED_PREFERENCE, MODE_PRIVATE).getBoolean(KEY_IS_TRACKING, false)
-    set(value) = this.getSharedPreferences(KEY_SHARED_PREFERENCE, MODE_PRIVATE).edit().putBoolean(KEY_IS_TRACKING, value).apply()
+    get() = this.getSharedPreferences(KEY_SHARED_PREFERENCE, MODE_PRIVATE).getBoolean(
+      KEY_IS_TRACKING, false)
+    set(value) = this.getSharedPreferences(KEY_SHARED_PREFERENCE, MODE_PRIVATE).edit().putBoolean(
+      KEY_IS_TRACKING, value).apply()
+
+
+  //현재위치 및 내부 db에 저장
+  private val locationCallback = object: LocationCallback() {
+    override fun onLocationResult(locationResult: LocationResult?) {
+      super.onLocationResult(locationResult)
+      locationResult ?: return
+      locationResult.locations.forEach {
+        val trackingEntity = TrackingEntity(Calendar.getInstance().timeInMillis, it.latitude, it.longitude)
+        mapsActivityViewModel.insert(trackingEntity)
+        Log.v("NEW_LOCATION", it.latitude.toString() + ", " + it.latitude.toString()) //log로 확인
+      }
+    }
+  }
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
 
-    // Switch to AppTheme for displaying the activity
-
-    //setTheme(R.style.AppTheme)
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    setFragment(TAG_CALENDER,CalenderFragment())
+    setFragment(TAG_CALENDER,CalenderFragment()) //캘린더로 시작
 
     binding.navigationView.setOnItemSelectedListener { item ->
       when(item.itemId) {
         R.id.calenderFragment -> setFragment(TAG_CALENDER, CalenderFragment())
         R.id.map -> setFragment(TAG_MAP, MapFragment())
-        R.id.myPageFragment-> setFragment(TAG_MY_PAGE, MyPageFragment())
+        R.id.myPageFragment -> setFragment(TAG_MY_PAGE, MyPageFragment())
       }
       true
     }
 
-
-    /*val view = binding.root
-    setContentView(view)*/
 
     //권한체크
     if(isPermitted()){
@@ -209,55 +172,60 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
 
-    // Location
+    // 현재위치
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-    // Set up button click events
+    // 시작 버튼 클릭시
     binding.startButton.setOnClickListener {
-      // Clear the PolylineOptions from Google Map
       mMap.clear()
-
-      // Update Start & End Button
       isTracking = true
+
+      //백그라운드/포그라운드 동작
+      sendCommandToService(ACTION_START_OR_RESUME_SERVICE)
+
       updateButtonStatus()
 
-      // Reset the display text
+      // 걸음수, 이동거리 초기화
       updateAllDisplayText(0, 0f)
 
+      //트래킹 시작
       startTracking()
     }
-    binding.endButton.setOnClickListener { endButtonClicked() }
+    //종료버튼 클릭시
+    binding.endButton.setOnClickListener {
 
-    // Update layouts
-    updateButtonStatus()
+      //서비스 종료
+      sendCommandToService(ACTION_STOP_SERVICE)
+      // Update layouts
+      updateButtonStatus()
+      //종료가 맞는지 확인
+      endButtonClicked()
+    }
 
-    // 1
+
+    //viewmodel
     mapsActivityViewModel.allTrackingEntities.observe(this) { allTrackingEntities ->
       if (allTrackingEntities.isEmpty()) {
         updateAllDisplayText(0, 0f)
       }
     }
 
-    // 2
     mapsActivityViewModel.lastTrackingEntity.observe(this) { lastTrackingEntity ->
       lastTrackingEntity ?: return@observe
       addLocationToRoute(lastTrackingEntity)
     }
 
-    // 3
     mapsActivityViewModel.totalDistanceTravelled.observe(this) {
       it ?: return@observe
       val stepCount = mapsActivityViewModel.currentNumberOfStepCount.value ?: 0
       updateAllDisplayText(stepCount, it)
     }
 
-    // 4
     mapsActivityViewModel.currentNumberOfStepCount.observe(this) {
       val totalDistanceTravelled = mapsActivityViewModel.totalDistanceTravelled.value ?: 0f
       updateAllDisplayText(it, totalDistanceTravelled)
     }
 
-    // 5
     mapsActivityViewModel.allTrackingEntitiesRecord.observe(this) {
       addLocationListToRoute(it)
     }
@@ -287,18 +255,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
   private fun endButtonClicked() {
     AlertDialog.Builder(this)
-        .setTitle("Are you sure to stop tracking?")
-        .setPositiveButton("Confirm") { _, _ ->
+        .setTitle("오늘의 기록을 그만 하시겠습니까?")
+        .setPositiveButton("확인") { _, _ ->
           isTracking = false
           updateButtonStatus()
           stopTracking()
-        }.setNegativeButton("Cancel") { _, _ ->
+        }.setNegativeButton("취소") { _, _ ->
         }
         .create()
         .show()
   }
 
-  // Tracking
+  // 트래킹
   @AfterPermissionGranted(REQUEST_CODE_ACTIVITY_RECOGNITION)
   private fun startTracking() {
     val isActivityRecognitionPermissionFree = Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
@@ -325,11 +293,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     mapsActivityViewModel.deleteAllTrackingEntity()
     fusedLocationProviderClient.removeLocationUpdates(locationCallback)
 
-    // Stop step sensor listener
+    // 만보기 센서 설정
     val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
     val stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
     sensorManager.unregisterListener(this, stepCounterSensor)
   }
+
+  //서비스 관련
+  private fun sendCommandToService(action: String) =
+    Intent(this, TrackingService::class.java).also {
+      it.action = action
+      this.startService(it)
+    }
 
   fun isPermitted() : Boolean{
     for(perm in permissons){
@@ -341,7 +316,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
   }
 
   fun startProcess(){
-    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     mapFragment.getMapAsync(this)
   }
@@ -363,7 +337,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     showUserLocation()
 
-    // Add a marker in 서울 시청 and move the camera
+    // 마커를 서울 시청으로 설정
     val latitude = 37.5666805
     val longitude = 126.9784147
     val seoulLatLong = LatLng(latitude, longitude)
@@ -371,7 +345,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     val zoomLevel = 9.5f
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(seoulLatLong, zoomLevel))
 
-    // Draw all the previous points on the map
+    // polyline 그리기
     if (isTracking) {
       mapsActivityViewModel.getAllTrackingEntities()
     }
@@ -390,13 +364,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
   }
 
   private fun addLocationToRoute(trackingEntity: TrackingEntity) {
+    if (!this::mMap.isInitialized) {
+      return
+    }
     mMap.clear()
     val newLatLngInstance = trackingEntity.asLatLng()
     polylineOptions.points.add(newLatLngInstance)
     mMap.addPolyline(polylineOptions)
   }
 
-  // Step Counter related codes
+  // 만보기 센서
   private fun setupStepCounterListener() {
     val sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
     val stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
