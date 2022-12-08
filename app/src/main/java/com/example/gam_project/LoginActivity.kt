@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gam_project.tracking.MapsActivity
+import com.example.gam_project.MapsActivity
 import com.example.gam_project.tracking.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
