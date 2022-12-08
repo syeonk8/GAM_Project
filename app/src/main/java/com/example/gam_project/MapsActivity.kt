@@ -152,11 +152,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    setFragment(TAG_CALENDER,CalenderFragment()) //캘린더로 시작
+    setFragment(TAG_MAP,MapFragment()) //캘린더로 시작
 
     binding.navigationView.setOnItemSelectedListener { item ->
       when(item.itemId) {
-        R.id.calenderFragment -> setFragment(TAG_CALENDER, CalenderFragment())
+        R.id.calenderFragment -> setFragment(TAG_CALENDER, CalendarFragment())
         R.id.map -> setFragment(TAG_MAP, MapFragment())
         R.id.myPageFragment -> setFragment(TAG_MY_PAGE, MyPageFragment())
       }
