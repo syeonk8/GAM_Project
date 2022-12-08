@@ -4,6 +4,8 @@ import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACTIVITY_RECOGNITION
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.hardware.Sensor
@@ -163,7 +165,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
       true
     }
 
-
     //권한체크
     if(isPermitted()){
       startProcess()
@@ -171,13 +172,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
       ActivityCompat.requestPermissions(this,permissons,PERM_FLAG)
     }
 
+    requestPermission()
 
     // 현재위치
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
     // 시작 버튼 클릭시
     binding.startButton.setOnClickListener {
-      mMap.clear()
+      //mMap.clear()
       isTracking = true
 
       //백그라운드/포그라운드 동작
@@ -399,6 +401,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
   }
 
+
   // Location
   @AfterPermissionGranted(REQUEST_CODE_FINE_LOCATION)
   private fun showUserLocation() {
@@ -519,6 +522,62 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         }else{
           Toast.makeText(this,"권한을 승인해야지만 앱을 사용할 수 있습니다.",Toast.LENGTH_LONG).show()
         }
+      }
+    }
+  }
+
+
+  // 안드로이드 API 30(안드로이드 11 이상)부터는 백그라운드 권한을 직접 설정해야함
+  private fun backgroundPermission(){
+    ActivityCompat.requestPermissions(
+      this,
+      arrayOf(
+        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+      ), 2)
+  }
+
+  // 백그라운드 권한 요청
+  private fun permissionDialog(context : Context){
+    var builder = android.app.AlertDialog.Builder(context)
+    builder.setTitle("앱을 사용하기 위해서는 위치 권한을 위해 항상 허용으로 설정해주세요.")
+
+    var listener = DialogInterface.OnClickListener { _, p1 ->
+      when (p1) {
+        DialogInterface.BUTTON_POSITIVE ->
+          backgroundPermission()
+      }
+    }
+    builder.setPositiveButton("네", listener)
+    builder.setNegativeButton("아니오", null)
+
+    builder.show()
+  }
+
+  private fun requestPermission(){
+    // 이미 권한이 수락 되어 있는 경우
+    if(TrackingUtility.hasLocationPermissions(this)){
+      return
+    }
+    //권한을 설정해야 하는 경우
+    else {
+      //안드로이드 11 이상
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        ActivityCompat.requestPermissions(
+          this,
+          arrayOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+          ), 1)
+        permissionDialog(this) //항상 허용 설정 창으로 이동
+      }
+      // API 23 미만 버전(안드로이드 10 이하)에서는 백그라운드 따로 설정할 필요x(항상 허용창 뜸)
+      else {
+        ActivityCompat.requestPermissions(
+          this,
+          arrayOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+          ), 1)
       }
     }
   }
