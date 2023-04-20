@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gam_project.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/navHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_menu" />
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu"
+        android:background="@color/gold"
+        app:itemIconTint="@drawable/bottom_nav_selector"
+        app:itemTextColor="@drawable/bottom_nav_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

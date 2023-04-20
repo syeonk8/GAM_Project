@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu"
+    app:startDestination="@+id/mapsFragment">
+
+    <action
+        android:id="@+id/action_global_mapsFragment"
+        app:destination="@id/mapsFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/recordPageFragment"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.gam_project.fragment.MapsFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_maps"></fragment>
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.gam_project.fragment.CalendarFragment"
+        android:label="Calendar"
+        tools:layout="@layout/fragment_calendar"></fragment>
+
+    <fragment
+        android:id="@+id/myRecordFragment"
+        android:name="com.example.gam_project.fragment.MyRecordFragment"
+        android:label="MyRecord"
+        tools:layout="@layout/fragment_my_record"></fragment>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.example.gam_project.fragment.MyPageFragment"
+        android:label="MyPage"
+        tools:layout="@layout/fragment_my_page"></fragment>
+
+
+    <fragment
+        android:id="@+id/recordPageFragment"
+        android:name="com.example.gam_project.fragment.RecordPageFragment"
+        android:label="RecordPage"
+        tools:layout="@layout/fragment_record_page"></fragment>
+
+    <fragment
+        android:id="@+id/detailPageFragment"
+        android:name="com.example.gam_project.fragment.DetailPageFragment"
+        android:label="DetailPageFragment"
+        tools:layout="@layout/fragment_detail_page" />
+
+    <fragment
+        android:id="@+id/editPageFragment"
+        android:name="com.example.gam_project.fragment.EditPageFragment"
+        android:label="EditPageFragment"
+        tools:layout="@layout/fragment_edit_page" />
+
+    <fragment
+        android:id="@+id/dailyFragment"
+        android:name="com.example.gam_project.fragment.DailyFragment"
+        android:label="DailyFragment"
+        tools:layout="@layout/fragment_daily" />
+
+</navigation>

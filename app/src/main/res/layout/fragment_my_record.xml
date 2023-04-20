@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- SearchView -->
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEECEC"
+        android:orientation="vertical">
+
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:iconifiedByDefault="false"
+            android:background="@drawable/view_border"
+            android:queryHint="제목을 검색하세요">
+
+        </SearchView>
+
+
+    </LinearLayout>
+
+    <!-- ScrollView -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="#EEECEC"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/newButton"
+                android:button="@null"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_selector"
+                android:text="최신순"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/oldButton"
+                android:button="@null"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_selector"
+                android:text="오래된순"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/starButton"
+                android:button="@null"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_selector"
+                android:text="별점순"
+                android:gravity="center"/>
+
+        </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

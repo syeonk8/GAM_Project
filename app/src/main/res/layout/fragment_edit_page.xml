@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/goBackButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_back"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="right">
+
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_button"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="저장" />
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="제목"
+                    android:background="@null"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="기록 시간 :"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/totalDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="총거리 :" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:numStars="3"
+                    android:stepSize="1"
+                    android:isIndicator="false"
+                    android:layout_marginRight="10dp"
+                    style="@style/CustomRatingBarStyle"/>
+
+
+                <EditText
+                    android:id="@+id/contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="내용"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                android:layout_marginTop="10dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

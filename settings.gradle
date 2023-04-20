@@ -1,0 +1,19 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        maven { url " https://jitpack.io " }
+        mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+        jcenter()
+    }
+}
+rootProject.name = "GAM_Project"
+include ':app'

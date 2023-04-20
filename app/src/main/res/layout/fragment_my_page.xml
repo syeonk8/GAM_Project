@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFF0"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/default_profile"
+        android:contentDescription="Profile Picture"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:onClick="onImageViewClicked" />
+
+    <TextView
+        android:id="@+id/text_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="환영합니다. [USERNAME] 님"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="계정: [USER EMAIL]"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/totalDistanceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
+        android:padding="16dp"
+        android:text="총 거리: 0 m"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/totalRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:padding="16dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_round"
+        android:text="기록한 게시글 수: 0 " />
+
+    <Switch
+        android:id="@+id/imageSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/button_round"
+        android:checked="true"
+        android:text="지도 위에 사진 띄우기" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/colorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="폴리라인 색상 변경"
+        android:background="@drawable/button_round"
+        android:layout_marginTop="20dp"
+        android:onClick="onColorPickerClicked" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_round"
+        android:onClick="onLogoutClicked"
+        android:text="로그아웃" />
+
+</LinearLayout>
