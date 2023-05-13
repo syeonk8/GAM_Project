@@ -102,7 +102,6 @@ class RecordPageFragment : Fragment(), OnMapReadyCallback {
             val i_rating = binding.ratingBar.rating
             val calendarEntity = CalendarEntity(
                 routeId = id,
-                currentTime = today_date,
                 startTime = start_time,
                 endTime = end_time,
                 year = year,
